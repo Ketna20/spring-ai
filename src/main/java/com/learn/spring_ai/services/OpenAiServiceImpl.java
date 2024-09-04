@@ -11,9 +11,10 @@ public class OpenAiServiceImpl implements OpenAiService {
 
     private final ChatClient chatClient;
 
-    public OpenAiServiceImpl(ChatClient chatClient) {
-        this.chatClient = chatClient;
+    public OpenAiServiceImpl(ChatClient.Builder chatClientBuilder) {
+        this.chatClient = chatClientBuilder.build();
     }
+
 
     @Override
     public String getAnswer(String question) {
