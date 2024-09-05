@@ -1,5 +1,7 @@
 package com.learn.spring_ai.services;
 
+import com.learn.spring_ai.model.Answer;
+import com.learn.spring_ai.model.Question;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -24,5 +26,15 @@ public class OpenAiServiceImpl implements OpenAiService {
 
         // Step 3: Extract the answer from the response
         return response.content();
+    }
+
+    @Override
+    public Answer getAnswer(Question question) {
+        PromptTemplate promptTemplate = new PromptTemplate(question.question());
+        Prompt prompt = promptTemplate.create();
+        ChatClient.CallPromptResponseSpec response = chatClient.prompt(prompt).call();
+
+        // Step 3: Extract the answer from the response
+        return new Answer(response.content());
     }
 }
